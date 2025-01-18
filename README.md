@@ -1,11 +1,12 @@
 
-## 暂停Windows系统更新.bat
+## disable-Windows-update.bat
+
 使Windows10以上系统暂停自动更新，防止系统自动升级
 <br>当前版本bat运行后将会使Windows自动更新暂停至2050-01-01 00:00:00
 <br>用法：
+下载 "[disable-Windows-update.bat](https://github.com/WavesMan/Disable-automatic-Windows-update/releases)"
 ```
-下载 "暂停Windows系统更新.bat"
-运行 "暂停Windows系统更新.bat"
+运行 "disable-Windows-update.bat"
 选择 "1. 暂停Windows自动更新" 将会使Windows自动更新暂停至2050-01-01 00:00:00
 选择 "2. 取消暂停Windows自动更新" Windows自动更新将恢复正常
 ```
