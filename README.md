@@ -1,4 +1,5 @@
 # 目录
+- [你有一些新的想法或建议？](https://github.com/WavesMan/Disable-automatic-Windows-update?tab=readme-ov-file#new-ideals)
 - [禁用Windows自动更新](https://github.com/WavesMan/Disable-automatic-Windows-update?tab=readme-ov-file#disable-Windows-updatebat)
 - [禁用Windows Defender](https://github.com/WavesMan/Disable-automatic-Windows-update?tab=readme-ov-file#disable-Windows-Defenderbat)
 - [禁用One Dirve](https://github.com/WavesMan/Disable-automatic-Windows-update?tab=readme-ov-file#disable-Windows-OneDirvebat)
@@ -55,3 +56,10 @@
 选择 "2. 取消关闭Windows OneDrive" Windows OneDrive 将会继续启用
 ```
 > 如果您需要修改此脚本，请注意此脚本使用的字符集为ANSI，请使用记事本等文本编辑器打开并修改
+
+
+
+---
+# New-Ideals
+你有一些建议或想法想要提出？
+前往[创意-ideas](https://github.com/WavesMan/Disable-automatic-Windows-update/discussions/categories/%E5%88%9B%E6%84%8F-ideas)提出
