@@ -1,3 +1,5 @@
+![disable-Windows-update](https://raw.githubusercontent.com/WavesMan/Disable-automatic-Windows-update/refs/heads/main/disable-Windows-update.png)
+
 # 目录
 - [你有一些新的想法或建议？](https://github.com/WavesMan/Disable-automatic-Windows-update?tab=readme-ov-file#new-ideals)
 - [禁用Windows自动更新](https://github.com/WavesMan/Disable-automatic-Windows-update?tab=readme-ov-file#disable-Windows-updatebat)
