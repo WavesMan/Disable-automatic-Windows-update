@@ -19,10 +19,10 @@ echo UAC.ShellExecute "%~s0", "", "", "runas", 1 >> "%temp%\getadmin.vbs"
 del /f /q "%temp%\getadmin.vbs"
 exit /B
 
+@echo off
 :gotAdmin
 :: 管理员权限已获得，继续执行以下命令
 echo 已成功获得管理员权限。
-pause
 
 :: 提供功能选择
 echo 请选择要执行的操作：
