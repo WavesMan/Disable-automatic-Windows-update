@@ -6,6 +6,12 @@
 - [禁用Windows Defender](https://github.com/WavesMan/Disable-automatic-Windows-update?tab=readme-ov-file#disable-Windows-Defenderbat)
 - [禁用One Dirve](https://github.com/WavesMan/Disable-automatic-Windows-update?tab=readme-ov-file#disable-Windows-OneDirvebat)
 
+---
+## 基于Python GUI的exe应用程序
+### 预览：
+![Windows自动更新管理](https://github.com/WavesMan/Disable-automatic-Windows-update/blob/main/src/01.png?raw=true)
+<br>[点此前往下载](https://github.com/WavesMan/Disable-automatic-Windows-update/releases/tag/EXE-v1.0)
+<br>**你需要保持文件夹"_internal"与exe文件处于同一目录才能正确运行应用程序**
 
 ---
 ## disable-Windows-update.bat
@@ -13,7 +19,8 @@
 使Windows10以上系统暂停自动更新，防止系统自动升级
 <br>当前版本bat运行后将会使Windows自动更新暂停至2050-01-01 00:00:00
 <br>用法：
-下载 "[disable-Windows-update.bat](https://github.com/WavesMan/Disable-automatic-Windows-update/releases)"
+<br>下载最新稳定版本 "[disable-Windows-update.bat](https://github.com/WavesMan/Disable-automatic-Windows-update/releases/tag/v1.0)"
+<br>下载最新测试版本 "[disable-Windows-update.bat](https://github.com/WavesMan/Disable-automatic-Windows-update/releases/tag/v1.0)"
 ```
 运行 "disable-Windows-update.bat"
 选择 "1. 暂停Windows自动更新" 将会使Windows自动更新暂停至2050-01-01 00:00:00
@@ -35,7 +42,7 @@
 <br>脚本运行后需要**重新启动计算机**设置才会生效
 <br>**因禁用Windows Defender导致的计算机系统安全问题，脚本制作者不承担任何责任**
 <br>用法：
-下载 "[disable-Windows-Defender.bat](https://github.com/WavesMan/Disable-automatic-Windows-update/releases)"
+下载 "[disable-Windows-Defender.bat](https://github.com/WavesMan/Disable-automatic-Windows-update/releases/v1.1)"
 ```
 运行 "disable-Windows-Defender.bat"
 选择 "1. 关闭Windows Defender" 将会禁用 Windows Defender
@@ -51,7 +58,7 @@
 <br>脚本运行后需要**重新启动计算机**设置才会生效
 <br>**因禁用Windows OneDrive导致的正常工作文件备份，脚本制作者不承担任何责任**
 <br>用法：
-下载 "[disable-Windows-OneDirve.bat](https://github.com/WavesMan/Disable-automatic-Windows-update/releases)"
+下载 "[disable-Windows-OneDirve.bat](https://github.com/WavesMan/Disable-automatic-Windows-update/releases/v1.1)"
 ```
 运行 "disable-Windows-Defender.bat"
 选择 "1. 关闭Windows OneDrive" 将会禁用 Windows OneDrive
