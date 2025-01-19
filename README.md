@@ -20,7 +20,7 @@
 <br>当前版本bat运行后将会使Windows自动更新暂停至2050-01-01 00:00:00
 <br>用法：
 <br>下载最新稳定版本 "[disable-Windows-update.bat](https://github.com/WavesMan/Disable-automatic-Windows-update/releases/tag/v1.0)"
-<br>下载最新测试版本 "[disable-Windows-update.bat](https://github.com/WavesMan/Disable-automatic-Windows-update/releases/tag/v1.0)"
+<br>下载最新测试版本 "[disable-Windows-update.bat](https://github.com/WavesMan/Disable-automatic-Windows-update/releases/tag/v1.1)"
 ```
 运行 "disable-Windows-update.bat"
 选择 "1. 暂停Windows自动更新" 将会使Windows自动更新暂停至2050-01-01 00:00:00
