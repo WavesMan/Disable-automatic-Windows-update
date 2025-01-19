@@ -1,4 +1,10 @@
+# 目录
+- [禁用Windows自动更新](https://github.com/WavesMan/Disable-automatic-Windows-update?tab=readme-ov-file#disable-Windows-updatebat)
+- [禁用Windows Defender](https://github.com/WavesMan/Disable-automatic-Windows-update?tab=readme-ov-file#disable-Windows-Defenderbat)
+- [禁用One Dirve](https://github.com/WavesMan/Disable-automatic-Windows-update?tab=readme-ov-file#disable-Windows-OneDirvebat)
 
+
+---
 ## disable-Windows-update.bat
 
 使Windows10以上系统暂停自动更新，防止系统自动升级
@@ -12,9 +18,40 @@
 ```
 > 如果您需要修改此脚本，请注意此脚本使用的字符集为ANSI，请使用记事本等文本编辑器打开并修改
 
-
-## 一些常见问题
+### 一些常见问题
 <p>Q：此脚本的禁用Windows自动更新会不会影响Microsoft Store运行
 <br>A：2025-01-09测试结论：不会，如果您无法打开请检查网络环境
 <p>Q：想要恢复Windows自动更新怎么办
 <br>A：再次运行此脚本，选择 "2. 取消暂停Windows自动更新"
+
+
+---
+## disable-Windows-Defender.bat
+
+此脚本将会禁用Windows Defender，这可能会影响计算机系统安全
+<br>脚本运行后需要**重新启动计算机**设置才会生效
+<br>**因禁用Windows Defender导致的计算机系统安全问题，脚本制作者不承担任何责任**
+<br>用法：
+下载 "[disable-Windows-Defender.bat](https://github.com/WavesMan/Disable-automatic-Windows-update/releases)"
+```
+运行 "disable-Windows-Defender.bat"
+选择 "1. 关闭Windows Defender" 将会禁用 Windows Defender
+选择 "2. 取消关闭Windows Defender" Windows Defender 将会继续启用
+```
+> 如果您需要修改此脚本，请注意此脚本使用的字符集为ANSI，请使用记事本等文本编辑器打开并修改
+
+
+---
+## disable-Windows-OneDirve.bat
+
+此脚本将会禁用Windows OneDrive，这可能会影响你的正常工作文件备份
+<br>脚本运行后需要**重新启动计算机**设置才会生效
+<br>**因禁用Windows OneDrive导致的正常工作文件备份，脚本制作者不承担任何责任**
+<br>用法：
+下载 "[disable-Windows-OneDirve.bat](https://github.com/WavesMan/Disable-automatic-Windows-update/releases)"
+```
+运行 "disable-Windows-Defender.bat"
+选择 "1. 关闭Windows OneDrive" 将会禁用 Windows OneDrive
+选择 "2. 取消关闭Windows OneDrive" Windows OneDrive 将会继续启用
+```
+> 如果您需要修改此脚本，请注意此脚本使用的字符集为ANSI，请使用记事本等文本编辑器打开并修改
