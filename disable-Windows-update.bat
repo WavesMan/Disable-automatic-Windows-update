@@ -1,59 +1,62 @@
+::ANSI
 @echo off
 
-:: æ£€æŸ¥æ˜¯å¦ä»¥ç®¡ç†å‘˜èº«ä»½è¿è¡Œ
+:: ¼ì²éÊÇ·ñÒÔ¹ÜÀíÔ±Éí·İÔËĞĞ
 >nul 2>&1 "%SYSTEMROOT%\system32\cacls.exe" "%SYSTEMROOT%\system32\config\system"
 if '%errorlevel%' NEQ '0' (
-    echo æ­£åœ¨è¯·æ±‚ç®¡ç†å‘˜æƒé™...
+    echo ÕıÔÚÇëÇó¹ÜÀíÔ±È¨ÏŞ...
     goto UACPrompt
 ) else (
     goto gotAdmin
 )
 
 :UACPrompt
-:: åˆ›å»ºä¸€ä¸ªä¸´æ—¶ VBScript æ–‡ä»¶ä»¥æå‡æƒé™
+:: ´´½¨Ò»¸öÁÙÊ± VBScript ÎÄ¼şÒÔÌáÉıÈ¨ÏŞ
 echo Set UAC = CreateObject^("Shell.Application"^) > "%temp%\getadmin.vbs"
 echo UAC.ShellExecute "%~s0", "", "", "runas", 1 >> "%temp%\getadmin.vbs"
-:: æ‰§è¡Œ VBScript æå‡æƒé™
+:: Ö´ĞĞ VBScript ÌáÉıÈ¨ÏŞ
 "%temp%\getadmin.vbs"
-:: åˆ é™¤ä¸´æ—¶ VBScript æ–‡ä»¶
+:: É¾³ıÁÙÊ± VBScript ÎÄ¼ş
 del /f /q "%temp%\getadmin.vbs"
 exit /B
 
-@echo off
 :gotAdmin
-:: ç®¡ç†å‘˜æƒé™å·²è·å¾—ï¼Œç»§ç»­æ‰§è¡Œä»¥ä¸‹å‘½ä»¤
-echo å·²æˆåŠŸè·å¾—ç®¡ç†å‘˜æƒé™ã€‚
+:: ¹ÜÀíÔ±È¨ÏŞÒÑ»ñµÃ£¬¼ÌĞøÖ´ĞĞÒÔÏÂÃüÁî
+echo ÒÑ³É¹¦»ñµÃ¹ÜÀíÔ±È¨ÏŞ¡£
 
-:: æä¾›åŠŸèƒ½é€‰æ‹©
-echo è¯·é€‰æ‹©è¦æ‰§è¡Œçš„æ“ä½œï¼š
-echo 1. æš‚åœWindowsè‡ªåŠ¨æ›´æ–°
-echo 2. å–æ¶ˆæš‚åœWindowsè‡ªåŠ¨æ›´æ–°
-set /p choice=è¯·è¾“å…¥é€‰é¡¹ (1 æˆ– 2): 
 
-:: åˆ¤å®šé€‰é¡¹
-if '%choice%' EQU '1' goto Update
-if '%choice%' EQU '2' goto Un_Update
-echo æ— æ•ˆçš„é€‰é¡¹ï¼Œè¯·é‡æ–°è¿è¡Œè„šæœ¬ã€‚
+@echo off
+
+:: Ìá¹©¹¦ÄÜÑ¡Ôñ
+echo ÇëÑ¡ÔñÒªÖ´ĞĞµÄ²Ù×÷£º
+echo 1. ÔİÍ£Windows×Ô¶¯¸üĞÂ
+echo 2. È¡ÏûÔİÍ£Windows×Ô¶¯¸üĞÂ
+set /p choice=ÇëÊäÈëÑ¡Ïî (1 »ò 2): 
+
+:: ÅĞ¶¨Ñ¡Ïî
+if '%choice%' EQU '1' goto Un_Update
+if '%choice%' EQU '2' goto Update
+echo ÎŞĞ§µÄÑ¡Ïî£¬ÇëÖØĞÂÔËĞĞ½Å±¾¡£
 pause
 exit /B
 
-:Update
-:: æš‚åœWindowsè‡ªåŠ¨æ›´æ–°
-echo æ­£åœ¨æš‚åœWindowsè‡ªåŠ¨æ›´æ–°...
-reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsUpdate\UX\Settings" /v "FlightSettingsMaxPauseDays" /t REG_DWORD /d 7000 /f
+:Un_Update
+:: ÔİÍ£Windows×Ô¶¯¸üĞÂ
+echo ÕıÔÚÔİÍ£Windows×Ô¶¯¸üĞÂ...
+reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsUpdate\UX\Settings" /v "FlightSettingsMaxPauseDays" /t REG_DWORD /d 18300 /f
 reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsUpdate\UX\Settings" /v "PauseFeatureUpdatesStartTime" /t REG_SZ /d "2023-07-07T10:00:52Z" /f
 reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsUpdate\UX\Settings" /v "PauseFeatureUpdatesEndTime" /t REG_SZ /d "2050-01-01T00:00:00Z" /f
 reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsUpdate\UX\Settings" /v "PauseQualityUpdatesStartTime" /t REG_SZ /d "2023-07-07T10:00:52Z" /f
 reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsUpdate\UX\Settings" /v "PauseQualityUpdatesEndTime" /t REG_SZ /d "2050-01-01T00:00:00Z" /f
 reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsUpdate\UX\Settings" /v "PauseUpdatesStartTime" /t REG_SZ /d "2023-07-07T09:59:52Z" /f
 reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsUpdate\UX\Settings" /v "PauseUpdatesExpiryTime" /t REG_SZ /d "2050-01-01T00:00:00Z" /f
-echo Windowsè‡ªåŠ¨æ›´æ–°å·²æš‚åœè‡³2050-01-01ã€‚
+echo Windows×Ô¶¯¸üĞÂÒÑÔİÍ£ÖÁ2050-01-01¡£
 pause
 exit /B
 
-:Un_Update
-:: å–æ¶ˆæš‚åœWindowsè‡ªåŠ¨æ›´æ–°
-echo æ­£åœ¨å–æ¶ˆæš‚åœWindowsè‡ªåŠ¨æ›´æ–°...
+:Update
+:: È¡ÏûÔİÍ£Windows×Ô¶¯¸üĞÂ
+echo ÕıÔÚÈ¡ÏûÔİÍ£Windows×Ô¶¯¸üĞÂ...
 reg delete "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsUpdate\UX\Settings" /v "FlightSettingsMaxPauseDays" /f
 reg delete "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsUpdate\UX\Settings" /v "PauseFeatureUpdatesStartTime" /f
 reg delete "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsUpdate\UX\Settings" /v "PauseFeatureUpdatesEndTime" /f
@@ -61,6 +64,6 @@ reg delete "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsUpdate\UX\Settings" /v 
 reg delete "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsUpdate\UX\Settings" /v "PauseQualityUpdatesEndTime" /f
 reg delete "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsUpdate\UX\Settings" /v "PauseUpdatesStartTime" /f
 reg delete "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsUpdate\UX\Settings" /v "PauseUpdatesExpiryTime" /f
-echo Windowsè‡ªåŠ¨æ›´æ–°å·²å–æ¶ˆæš‚åœã€‚
+echo Windows×Ô¶¯¸üĞÂÒÑÈ¡ÏûÔİÍ£¡£
 pause
 exit /B
