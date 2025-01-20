@@ -10,9 +10,8 @@
 ---
 ## 基于Python GUI的exe应用程序
 ### 预览：
-![Windows自动更新管理](https://github.com/WavesMan/Disable-automatic-Windows-update/blob/main/src/01.png?raw=true)
-<br>[点此前往下载](https://github.com/WavesMan/Disable-automatic-Windows-update/releases/tag/EXE-v1.0)
-<br>**你需要保持文件夹"_internal"与exe文件处于同一目录才能正确运行应用程序**
+![Windows自动更新管理](https://github.com/WavesMan/Disable-automatic-Windows-update/blob/main/src/preview.png?raw=true)
+<br>[点此前往下载](https://github.com/WavesMan/Disable-automatic-Windows-update/releases/tag/EXE-v1.5)
 
 ---
 ## disable-Windows-update.bat
