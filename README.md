@@ -2,7 +2,7 @@
 
 # 目录
 - [你有一些新的想法或建议？](https://github.com/WavesMan/Disable-automatic-Windows-update?tab=readme-ov-file#new-ideals)
-- [基于Python GUI的exe应用程序](https://github.com/WavesMan/Disable-automatic-Windows-update?tab=readme-ov-file#%E5%9F%BA%E4%BA%8Epython-gui%E7%9A%84exe%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F)
+- [基于Python GUI的exe应用程序](https://github.com/WavesMan/Disable-automatic-Windows-update?tab=readme-ov-file#基于Python-GUI的exe应用程序)
 - [禁用Windows自动更新](https://github.com/WavesMan/Disable-automatic-Windows-update?tab=readme-ov-file#disable-Windows-updatebat)
 - [禁用Windows Defender](https://github.com/WavesMan/Disable-automatic-Windows-update?tab=readme-ov-file#disable-Windows-Defenderbat)
 - [禁用One Dirve](https://github.com/WavesMan/Disable-automatic-Windows-update?tab=readme-ov-file#disable-Windows-OneDirvebat)
