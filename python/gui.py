@@ -1,9 +1,3 @@
-###########################################################################################################
-###########################################################################################################
-###############################              附属Python脚本            #####################################
-###########################################################################################################
-###########################################################################################################
-
 import subprocess
 import ctypes
 import sys
@@ -49,57 +43,58 @@ def setup_logging():
     
     logging.info("日志记录已初始化")
 
-def run_script(script_name):
-    """运行指定的 Python 脚本"""
-    try:
-        # 如果是打包后的环境，使用 sys._MEIPASS 获取资源路径
-        if getattr(sys, 'frozen', False):
-            base_path = sys._MEIPASS
-        else:
-            base_path = os.path.dirname(os.path.abspath(__file__))
-        
-        # 构建脚本的完整路径
-        script_path = os.path.join(base_path, script_name)
-        
-        # 记录脚本运行的详细信息
-        logging.debug(f"准备运行脚本: {script_path}")
-        
-        # 以管理员身份运行脚本
-        if not is_admin():
-            ctypes.windll.shell32.ShellExecuteW(None, "runas", sys.executable, " ".join(sys.argv), None, 1)
-            return
-        
-        # 运行脚本
-        subprocess.run(["python", script_path], check=True)
-        logging.info(f"成功运行: {script_name}")
-        print(f"成功运行: {script_name}")
-    except subprocess.CalledProcessError as e:
-        logging.error(f"运行失败: {script_name}\n错误信息: {e}")
-        logging.exception("异常堆栈信息")  # 记录异常堆栈
-        print(f"运行失败: {script_name}\n错误信息: {e}")
-    except Exception as e:
-        logging.error(f"未知错误: {e}")
-        logging.exception("异常堆栈信息")  # 记录异常堆栈
-        print(f"未知错误: {e}")
+# 执行注册表命令
+def execute_commands(commands):
+    """执行注册表命令"""
+    if not is_admin():
+        # 提示用户需要以管理员身份运行
+        messagebox.showwarning("权限不足", "请以管理员身份运行此程序以执行此操作。")
+        return False  # 返回 False 表示未执行命令
+    
+    for cmd in commands:
+        try:
+            result = subprocess.run(cmd, shell=True, check=True, capture_output=True, text=True)
+            logging.info(f"成功执行: {cmd}")
+            # 检查命令输出中是否包含失败关键词
+            if any(keyword in result.stdout.lower() or keyword in result.stderr.lower() 
+                   for keyword in ["error", "false", "失败", "错误"]):
+                logging.error(f"命令执行失败: {cmd}\n输出: {result.stdout}\n错误: {result.stderr}")
+                messagebox.showerror("错误", f"命令执行失败: {cmd}\n错误信息: {result.stderr}")
+                return False
+        except subprocess.CalledProcessError as e:
+            logging.error(f"命令执行失败: {cmd}\n错误信息: {e.stderr}")
+            messagebox.showerror("错误", f"命令执行失败: {cmd}\n错误信息: {e.stderr}")
+            return False
+    
+    return True  # 返回 True 表示所有命令执行成功
+
+# 写入注册表
+def write_registry(path, value_name, value):
+    """写入注册表"""
+    command = f'reg add "{path}" /v "{value_name}" /t REG_DWORD /d {value} /f'
+    return execute_commands([command])
 
 # 禁用 Windows Defender
 def disable_defender():
+    """禁用 Windows Defender"""
     try:
-        write_registry("HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender", "DisableAntiSpyware", 1)
-        messagebox.showinfo("成功", "已成功禁用 Windows Defender")
+        if write_registry("HKEY_LOCAL_MACHINE\\SOFTWARE\\Policies\\Microsoft\\Windows Defender", "DisableAntiSpyware", 1):
+            messagebox.showinfo("成功", "已成功禁用 Windows Defender")
     except Exception as e:
         messagebox.showerror("错误", f"禁用 Windows Defender 失败: {e}")
 
 # 启用 Windows Defender
 def un_disable_defender():
+    """启用 Windows Defender"""
     try:
-        write_registry("HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender", "DisableAntiSpyware", 0)
-        messagebox.showinfo("成功", "已成功启用 Windows Defender")
+        if write_registry("HKEY_LOCAL_MACHINE\\SOFTWARE\\Policies\\Microsoft\\Windows Defender", "DisableAntiSpyware", 0):
+            messagebox.showinfo("成功", "已成功启用 Windows Defender")
     except Exception as e:
         messagebox.showerror("错误", f"启用 Windows Defender 失败: {e}")
 
 # 暂停 Windows 自动更新
 def disable_windows_update():
+    """暂停 Windows 自动更新"""
     try:
         commands = [
             'reg add "HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\WindowsUpdate\\UX\\Settings" /v "FlightSettingsMaxPauseDays" /t REG_DWORD /d 18300 /f',
@@ -110,13 +105,14 @@ def disable_windows_update():
             'reg add "HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\WindowsUpdate\\UX\\Settings" /v "PauseUpdatesStartTime" /t REG_SZ /d "2023-07-07T09:59:52Z" /f',
             'reg add "HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\WindowsUpdate\\UX\\Settings" /v "PauseUpdatesExpiryTime" /t REG_SZ /d "2050-01-01T00:00:00Z" /f',
         ]
-        execute_commands(commands)
-        messagebox.showinfo("成功", "已成功暂停 Windows 自动更新")
+        if execute_commands(commands):  # 只有命令执行成功后才显示成功弹窗
+            messagebox.showinfo("成功", "已成功暂停 Windows 自动更新")
     except Exception as e:
         messagebox.showerror("错误", f"暂停 Windows 自动更新失败: {e}")
 
 # 取消暂停 Windows 自动更新
 def un_disable_windows_update():
+    """取消暂停 Windows 自动更新"""
     try:
         commands = [
             'reg delete "HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\WindowsUpdate\\UX\\Settings" /v "FlightSettingsMaxPauseDays" /f',
@@ -127,45 +123,28 @@ def un_disable_windows_update():
             'reg delete "HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\WindowsUpdate\\UX\\Settings" /v "PauseUpdatesStartTime" /f',
             'reg delete "HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\WindowsUpdate\\UX\\Settings" /v "PauseUpdatesExpiryTime" /f',
         ]
-        execute_commands(commands)
-        messagebox.showinfo("成功", "已成功取消暂停 Windows 自动更新")
+        if execute_commands(commands):  # 只有命令执行成功后才显示成功弹窗
+            messagebox.showinfo("成功", "已成功取消暂停 Windows 自动更新")
     except Exception as e:
         messagebox.showerror("错误", f"取消暂停 Windows 自动更新失败: {e}")
 
 # 禁用 Windows OneDrive
 def disable_windows_onedrive():
+    """禁用 Windows OneDrive"""
     try:
-        write_registry("HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\OneDrive", "DisableFileSyncNGSC", 1)
-        messagebox.showinfo("成功", "已成功禁用 Windows OneDrive")
+        if write_registry("HKEY_LOCAL_MACHINE\\SOFTWARE\\Policies\\Microsoft\\OneDrive", "DisableFileSyncNGSC", 1):
+            messagebox.showinfo("成功", "已成功禁用 Windows OneDrive")
     except Exception as e:
         messagebox.showerror("错误", f"禁用 Windows OneDrive 失败: {e}")
 
 # 启用 Windows OneDrive
 def un_disable_windows_onedrive():
+    """启用 Windows OneDrive"""
     try:
-        write_registry("HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\OneDrive", "DisableFileSyncNGSC", 0)
-        messagebox.showinfo("成功", "已成功启用 Windows OneDrive")
+        if write_registry("HKEY_LOCAL_MACHINE\\SOFTWARE\\Policies\\Microsoft\\OneDrive", "DisableFileSyncNGSC", 0):
+            messagebox.showinfo("成功", "已成功启用 Windows OneDrive")
     except Exception as e:
         messagebox.showerror("错误", f"启用 Windows OneDrive 失败: {e}")
-        
-# 写入注册表
-def write_registry(path, value_name, value):
-    command = f'reg add "{path}" /v "{value_name}" /t REG_DWORD /d {value} /f'
-    execute_commands([command])
-
-# 执行注册表命令
-def execute_commands(commands):
-    if not is_admin():
-        # 以管理员身份重新运行脚本
-        ctypes.windll.shell32.ShellExecuteW(None, "runas", sys.executable, " ".join(sys.argv), None, 1)
-        return
-    
-    for cmd in commands:
-        try:
-            subprocess.run(cmd, shell=True, check=True)
-            print(f"成功执行: {cmd}")
-        except subprocess.CalledProcessError as e:
-            print(f"执行失败: {cmd}\n错误信息: {e}")
 
 # 打开 GitHub 链接
 def open_github():
@@ -260,7 +239,6 @@ def export_logs():
         except Exception as e:
             messagebox.showerror("错误", f"导出日志文件失败：{e}")
             logging.error(f"导出日志文件失败：{e}")
-            logging.exception("异常堆栈信息")  # 记录异常堆栈
 
 # 创建 GUI 界面
 def create_gui():
@@ -292,7 +270,7 @@ def create_gui():
         icon_path = os.path.join(base_path, "windows.ico")
         root.iconbitmap(icon_path)
     except tk.TclError as e:
-        print(f"无法加载图标文件: {e}")
+        logging.error(f"无法加载图标文件: {e}")
 
     # 设置主题
     style = ttk.Style()
@@ -442,7 +420,7 @@ def create_gui():
     ###########################################################################################################
     version_label = tk.Label(
         about_frame,
-        text="当前程序版本: v1.6",
+        text="当前程序版本: v1.7",
         font=("Microsoft YaHei", 12),
         bg="white",
         anchor="w",  # 文字左对齐
