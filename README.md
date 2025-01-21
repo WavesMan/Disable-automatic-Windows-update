@@ -83,5 +83,7 @@ Support this project by becoming a sponsor. Your support helps keep this project
 | Platform       | Link                                                                 |
 |----------------|---------------------------------------------------------------------|
 | 💖 爱发电       | [Sponsor on Aifadian](https://afdian.net/a/wavesman)           |
+| 💰 支付宝       | [Sponsor on AliPay](https://github.com/WavesMan/Disable-automatic-Windows-update/blob/main/src/AliPay.jpg)    |
+| 🎁 微信         | [Sponsor on WeChat](https://github.com/WavesMan/Disable-automatic-Windows-update/blob/main/src/WeChat.png)    |
 | ⭐ Patreon     | [Sponsor on Patreon](https://patreon.com/Waves_Man)      |
 | 🌟 PayPal      | [Donate via PayPal](https://paypal.me/wavesman)                |
