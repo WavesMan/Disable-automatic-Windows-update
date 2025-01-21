@@ -6,6 +6,7 @@
 - [禁用Windows自动更新](https://github.com/WavesMan/Disable-automatic-Windows-update?tab=readme-ov-file#disable-Windows-updatebat)
 - [禁用Windows Defender](https://github.com/WavesMan/Disable-automatic-Windows-update?tab=readme-ov-file#disable-Windows-Defenderbat)
 - [禁用One Dirve](https://github.com/WavesMan/Disable-automatic-Windows-update?tab=readme-ov-file#disable-Windows-OneDirvebat)
+- [Sponsor | 赞助](https://github.com/WavesMan/Disable-automatic-Windows-update?tab=readme-ov-file#Sponsor)
 
 ---
 ## 基于Python GUI的exe应用程序
@@ -72,3 +73,15 @@
 # New-Ideals
 你有一些建议或想法想要提出？
 前往[创意-ideas](https://github.com/WavesMan/Disable-automatic-Windows-update/discussions/categories/%E5%88%9B%E6%84%8F-ideas)提出
+
+
+---
+# Sponsor
+
+Support this project by becoming a sponsor. Your support helps keep this project alive!
+
+| Platform       | Link                                                                 |
+|----------------|---------------------------------------------------------------------|
+| 💖 爱发电       | [Sponsor on Aifadian](https://afdian.net/a/wavesman)           |
+| ⭐ Patreon     | [Sponsor on Patreon](https://patreon.com/Waves_Man)      |
+| 🌟 PayPal      | [Donate via PayPal](https://paypal.me/wavesman)                |
