@@ -1,5 +1,4 @@
-[![Page Views Count](https://badges.toozhao.com/badges/01JJ5WVJMW4XQQFWGKKYWFWKM0/blue.svg)](https://badges.toozhao.com/stats/01JJ5WVJMW4XQQFWGKKYWFWKM0 "Get your own page views count badge on badges.toozhao.com")
-![disable-Windows-update](https://raw.githubusercontent.com/WavesMan/Disable-automatic-Windows-update/refs/heads/main/disable-Windows-update.png)
+![disable-Windows-update](/disable-Windows-update.png)
 
 # 目录
 - [你有一些新的想法或建议？](https://github.com/WavesMan/Disable-automatic-Windows-update?tab=readme-ov-file#new-ideals)
@@ -12,7 +11,7 @@
 ---
 ## 基于Python GUI的exe应用程序
 ### 预览：
-![Windows自动更新管理](https://github.com/WavesMan/Disable-automatic-Windows-update/blob/main/src/preview.png?raw=true)
+![Windows自动更新管理](./src/preview.png)
 <br>[点此前往下载](https://github.com/WavesMan/Disable-automatic-Windows-update/releases/tag/EXE-v1.7)
 
 ---
@@ -68,7 +67,14 @@
 ```
 > 如果您需要修改此脚本，请注意此脚本使用的字符集为ANSI，请使用记事本等文本编辑器打开并修改
 
+## 更新历史
 
+#### v2.0 2025-12-24
+  - 完整重构 Python GUI，解藕设计
+  - 新增 禁/启用 Windows 防火墙
+  - 修复 OneDrive 禁用无效的问题
+  - 重新设计了 UI，更加简化
+  - 复用部分组件，将打包大小从 9.34MB 降低到 8.92MB
 
 ---
 # New-Ideals

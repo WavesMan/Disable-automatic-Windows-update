@@ -1,0 +1,38 @@
+# Environment
+.venv/
+venv/
+.pytest_cache/
+.tox/
+.coverage
+.coverage.*
+.cache
+.pytest_cache/
+coverage.xml
+htmlcov/
+*.pyc
+*.so
+*.egg-info/
+dist/
+build/
+
+# builds
+*.exe
+*build*/
+dist/
+*.spec
+__pycache__/
+
+# uv
+uv.log
+uv.log.*
+.python-version
+
+
+# Logs
+*.log
+logs/
+
+# IDEs
+.idea/
+.trae/
+.vscode/
