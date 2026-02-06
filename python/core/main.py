@@ -83,3 +83,8 @@ def disable_firewall():
 def enable_firewall():
     services = make_services("")
     return services["firewall"].enable()
+
+
+def pause_updates_with_times(max_days: int, start_iso: str, end_iso: str):
+    services = make_services("")
+    return services["update"].pause(max_days, start_iso, end_iso)

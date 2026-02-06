@@ -1,5 +1,6 @@
 import tkinter as tk
 from tkinter import ttk, messagebox, filedialog
+import os
 import webbrowser
 
 from ..admin.service import is_admin, run_as_admin
@@ -16,7 +17,10 @@ from ..core.main import (
     check_update,
     disable_firewall,
     enable_firewall,
+    pause_updates_with_times,
 )
+from ..core.time_policy import compute_pause_params
+from .components import TimeRangeSelector
 
 def gui():
     # NOTE: 界面初始化前完成日志初始化与权限校验；日志路径用于导出功能
@@ -27,12 +31,17 @@ def gui():
 
     root = tk.Tk()
     root.title("Windows 更新管理")
+    try:
+        icon_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "windows.ico")
+        root.iconbitmap(icon_path)
+    except Exception:
+        pass
     root.geometry("550x550")
     x, y = (root.winfo_screenwidth() - 550) // 2, (root.winfo_screenheight() - 550) // 2
     root.geometry(f"550x550+{x}+{y}")
     root.resizable(False, False)
-    root.minsize(550, 550)
-    root.maxsize(550, 550)
+    root.minsize(550, 560)
+    root.maxsize(550, 560)
     ttk.Style().theme_use("vista")
 
     # NOTE: 单页简化界面：顶部操作区 + 两个功能区（更新、Defender）
@@ -46,9 +55,38 @@ def gui():
 
     ttk.Label(content, text="暂停 Windows 更新", font=("Microsoft YaHei", 14)).pack(pady=10)
     f1 = ttk.Frame(content)
-    f1.pack()
-    create_btn(f1, "暂停", lambda: _handle_result(pause_updates(), "已暂停 Windows 更新"))
-    create_btn(f1, "取消", lambda: _handle_result(resume_updates(), "已取消暂停更新"))
+    f1.pack(pady=4)
+
+    selector = TimeRangeSelector(f1)
+    selector.pack(pady=6)
+
+    def _pause_with_selector():
+        try:
+            sdt, preset_days, edt, is_custom = selector.get_values()
+        except ValueError as e:
+            messagebox.showerror("错误", str(e))
+            return
+        md, s_iso, e_iso, end_local = compute_pause_params(
+            sdt,
+            None if is_custom else int(preset_days),
+            edt,
+            35,
+            clamp=not is_custom,
+        )
+        try:
+            selector._apply_date("end", end_local.year, end_local.month, end_local.day)
+        except Exception:
+            pass
+        res = pause_updates_with_times(md, s_iso, e_iso)
+        if res.ok:
+            _handle_result(res, f"已暂停至 {end_local.strftime('%Y-%m-%d %H:%M')}")
+        else:
+            _handle_result(res, "暂停失败")
+
+    btn_row = ttk.Frame(content)
+    btn_row.pack(pady=6)
+    create_btn(btn_row, "暂停", _pause_with_selector)
+    create_btn(btn_row, "取消", lambda: _handle_result(resume_updates(), "已取消暂停更新"))
 
     ttk.Label(content, text="禁用 Windows Defender", font=("Microsoft YaHei", 14)).pack(pady=10)
     f2 = ttk.Frame(content)

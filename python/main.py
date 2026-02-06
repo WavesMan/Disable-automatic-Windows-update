@@ -2,9 +2,8 @@ import os
 import sys
 
 if __package__ in (None, ""):
-    # NOTE: 兼容直接执行 new_py/main.py 的场景，将上一级目录加入 sys.path，以便绝对导入包
     sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-    from new_py.ui.main import gui      # 如果你的IDE在这里报错，别管他，能跑
+    from python.ui.main import gui
 else:
     from .ui.main import gui
 
@@ -13,7 +12,7 @@ if __name__ == "__main__":
     gui()
 
 
-"""
+r"""
 How To Build
 uvx pyinstaller --noconfirm --clean --onefile --windowed --uac-admin --icon "path_to_ico" --upx-dir "path_to_upx" -n Disable-automatic-Windows-update ".\main.py"
 """
