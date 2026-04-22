@@ -1,9 +1,15 @@
 [project]
-name = "new-py"
-version = "0.1.0"
-description = "Add your description here"
+name = "Windows_Update_Manager"
+version = "2.2.0"
+description = "Windows Update Manager GUI"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
     "pyinstaller>=6.17.0",
 ]
+
+[tool.windows_update_manager]
+version-id = "EXE-v2.2"
+exe-name-template = "Windows_Update_Manager_<VersionID>.exe"
+entry-script = "main.py"
+icon-path = "windows.ico"

@@ -1,2 +1,2 @@
-__version__ = "EXE-v2.1"
+__version__ = "EXE-v2.2"
 

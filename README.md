@@ -14,6 +14,18 @@
 ![Windows自动更新管理](./src/preview.png)
 <br>[点此前往下载](https://github.com/WavesMan/Disable-automatic-Windows-update/releases/tag/EXE-v1.7)
 
+### 本地构建（uv）
+在 `python` 目录执行：
+```powershell
+pwsh -ExecutionPolicy Bypass -File .\build.ps1 -UpxDir "C:\Users\diwei\PyCharmMiscProject\upx"
+```
+构建行为说明：
+<br>- 读取 `python/pyproject.toml` 的 `version-id` 和 `exe-name-template`
+<br>- 固定使用 `python/windows.ico` 作为可执行文件图标
+<br>- `UPX` 目录由 `-UpxDir` 手动传入，便于开源项目在不同机器复用
+<br>- 未传 `-UpxDir` 时仍可构建，但不会启用 UPX 压缩
+<br>- 产物命名为 `Windows_Update_Manager_<VersionID>.exe`（例如 `Windows_Update_Manager_EXE-v2.2.exe`）
+
 ---
 ## disable-Windows-update.bat
 

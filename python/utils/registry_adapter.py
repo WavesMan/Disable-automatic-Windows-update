@@ -1,7 +1,9 @@
 from typing import List, Tuple
 import logging
+import time
 
 from .process_runner import run_cmd
+from .logger import log_event
 
 
 def _wrap_result(ok: bool, stdout: str, stderr: str) -> Tuple[bool, str]:
@@ -15,7 +17,8 @@ class RegistryAdapter:
     # NOTE: 将具体 reg 命令封装为声明式接口，避免调用方拼接字符串带来易错与不可维护问题
 
     def execute(self, cmd: str) -> Tuple[bool, str]:
-        logging.info(f"执行命令: {cmd}")
+        start = time.perf_counter()
+        log_event(logging.INFO, "registry_command_started", "执行命令", action="registry_command", status="started", cmd=cmd)
         ok, out, err = run_cmd(cmd)
         ok2, msg = _wrap_result(ok, out, err)
 
@@ -27,18 +30,29 @@ class RegistryAdapter:
                 "unable to find the specified registry key or value" in low_msg
                 or "系统找不到指定的注册表项或值" in low_msg
             ):
-                logging.info("目标注册表项不存在，视为已删除")
+                log_event(logging.INFO, "registry_command_tolerated", "目标注册表项不存在，视为已删除", action="registry_command", status="tolerated", cmd=cmd)
                 ok2, msg = True, ""
             elif low_cmd.startswith("taskkill") and (
                 "not found" in low_msg or "no instance" in low_msg or "找不到" in low_msg
             ):
-                logging.info("目标进程不存在，视为已结束")
+                log_event(logging.INFO, "registry_command_tolerated", "目标进程不存在，视为已结束", action="registry_command", status="tolerated", cmd=cmd)
                 ok2, msg = True, ""
 
+        duration_ms = int((time.perf_counter() - start) * 1000)
         if ok2:
-            logging.info("执行成功")
+            log_event(logging.INFO, "registry_command_finished", "执行成功", action="registry_command", status="ok", cmd=cmd, duration_ms=duration_ms)
         else:
-            logging.error(f"执行失败: {msg}")
+            log_event(
+                logging.ERROR,
+                "registry_command_finished",
+                f"执行失败: {msg}",
+                action="registry_command",
+                status="failed",
+                cmd=cmd,
+                duration_ms=duration_ms,
+                error_type="CommandFailed",
+                error_message=msg,
+            )
         return ok2, msg
 
     def batch(self, cmds: List[str]) -> Tuple[bool, List[str]]:

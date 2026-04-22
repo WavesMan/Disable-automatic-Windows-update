@@ -14,5 +14,5 @@ if __name__ == "__main__":
 
 r"""
 How To Build
-uvx pyinstaller --noconfirm --clean --onefile --windowed --uac-admin --icon "path_to_ico" --upx-dir "path_to_upx" -n Disable-automatic-Windows-update ".\main.py"
+pwsh -ExecutionPolicy Bypass -File .\build.ps1 -UpxDir "C:\Users\diwei\PyCharmMiscProject\upx"
 """
